@@ -1,15 +1,16 @@
 package com.allendowney.thinkdast;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class ListClientExample {
 	@SuppressWarnings("rawtypes")
-	private List list;
+	private ArrayList list;
 
 	@SuppressWarnings("rawtypes")
 	public ListClientExample() {
-		list = new LinkedList();
+		// This can't be new List() because an interface is abstract
+		list = new ArrayList();
 	}
 
 	@SuppressWarnings("rawtypes")
