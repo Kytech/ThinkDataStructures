@@ -15,3 +15,6 @@ hs_err_pid*
 *.exe
 *.dll
 *.lib
+
+# JUnit Output XML FIles
+code/junit
