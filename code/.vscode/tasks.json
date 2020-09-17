@@ -1,0 +1,44 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build and Run Current File (Ant)",
+            "type": "shell",
+            "dependsOn": "Build Project (Ant)",
+            "command": "ant ${fileBasenameNoExtension}",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Run Test Class for Current File (JUnit)",
+            "detail": "Note: This is intended to be ran from the class being tested. Use Build and Run Current File if the open file is a JUnit Test",
+            "type": "shell",
+            "dependsOn": "Build Project (Ant)",
+            "command": "ant ${fileBasenameNoExtension}Test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Project (Ant)",
+            "type": "shell",
+            "command": "ant",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean (Ant)",
+            "type": "shell",
+            "command": "ant clean",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
