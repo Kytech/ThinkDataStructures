@@ -194,7 +194,7 @@ public class MyArrayList<T> implements List<T> {
 	public T remove(int index) {
 		T deledElem = get(index);
 
-		for (int i=index; index<size-1; i++) {
+		for (int i=index; i<size-1; i++) {
 			array[i] = array[i+1];
 		}
 		size--;
