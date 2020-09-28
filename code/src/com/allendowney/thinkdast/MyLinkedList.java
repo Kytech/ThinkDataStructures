@@ -82,7 +82,24 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		//TODO: FILL THIS IN!
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException();
+
+		Node prevNode = null;
+		Node curNode = head;
+		for (int i=0; i<index; i++) {
+			prevNode = curNode;
+			curNode = curNode.next;
+		}
+
+		if (index==0)
+			head = new Node(element, head);
+		else if (index==size)
+			prevNode.next = new Node(element);
+		else
+			prevNode.next = new Node(element, prevNode.next);
+		
+		size++;
 	}
 
 	@Override
@@ -143,8 +160,16 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		//TODO: FILL THIS IN!
-		return -1;
+		int matchIndex = -1;
+		int curIndex = -1;
+		for (Node node = head; node != null; node = node.next) {
+			curIndex++;
+			if (this.equals(node.data, target)) {
+				matchIndex = curIndex;
+				break;
+			}
+		}
+		return matchIndex;
 	}
 
 	/** Checks whether an element of the array is the target.
@@ -208,8 +233,23 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		//TODO: FILL THIS IN!
-		return null;
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+
+		Node prevNode = null;
+		Node curNode = head;
+		for (int i=0; i<index; i++) {
+			prevNode = curNode;
+			curNode = curNode.next;
+		}
+
+		if (index==0)
+			head = curNode.next;
+		else
+			prevNode.next = curNode.next;
+		
+		size--;
+		return curNode.data;
 	}
 
 	@Override
@@ -244,7 +284,10 @@ public class MyLinkedList<E> implements List<E> {
 		if (fromIndex < 0 || toIndex >= size || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
 		}
-		// TODO: classify this and improve it.
+		// This method is quadratic. Add on the new list is linear relative to size of the sublist.
+		// The amount of time to seek to the beginning point of the sublist is also linear relative
+		// to the index of the start point. From there, each loop of the for loop takes longer in relation
+		// to the size of the sublist.
 		int i = 0;
 		MyLinkedList<E> list = new MyLinkedList<E>();
 		for (Node node=head; node != null; node = node.next) {
