@@ -12,7 +12,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
         {
             "label": "Run Test Class for Current File (JUnit)",
