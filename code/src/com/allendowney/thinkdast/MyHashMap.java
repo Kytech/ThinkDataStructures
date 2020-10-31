@@ -4,6 +4,7 @@
 package com.allendowney.thinkdast;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -40,7 +41,16 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	 *
 	 */
 	protected void rehash() {
-		// TODO: FILL THIS IN!
+		List<Map.Entry<K, V>> entries = new ArrayList<Map.Entry<K, V>>();
+		for (MyLinearMap<K, V> map : maps) {
+			entries.addAll(map.getEntries());
+		}
+
+		makeMaps(maps.size() * 2);
+
+		for (Map.Entry<K, V> entry : entries) {
+			put(entry.getKey(), entry.getValue());
+		}
 	}
 
 	/**
