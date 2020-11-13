@@ -71,7 +71,17 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) target;
 
-		// TODO: FILL THIS IN!
+		Node node = root;
+		while (node != null) {
+			int compareRes = k.compareTo(node.key);
+			if (compareRes < 0)
+				node = node.left;
+			else if (compareRes > 0)
+				node = node.right;
+			else
+				return node;
+		}
+
 		return null;
 	}
 
@@ -95,7 +105,15 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private boolean containsValueHelper(Node node, Object target) {
-		// TODO: FILL THIS IN!
+		if (node == null)
+			return false;
+		if (equals(target, node.value))
+			return true;
+		if (containsValueHelper(node.left, target))
+			return true;
+		if (containsValueHelper(node.right, target))
+			return true;
+		
 		return false;
 	}
 
@@ -121,8 +139,17 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	@Override
 	public Set<K> keySet() {
 		Set<K> set = new LinkedHashSet<K>();
-		// TODO: FILL THIS IN!
+		keySetHelper(root, set);
 		return set;
+	}
+
+	private void keySetHelper(Node node, Set<K> keySet) {
+		if (node == null)
+			return;
+		
+		keySetHelper(node.left, keySet);
+		keySet.add(node.key);
+		keySetHelper(node.right, keySet);
 	}
 
 	@Override
@@ -139,8 +166,31 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private V putHelper(Node node, K key, V value) {
-		// TODO: FILL THIS IN!
-		return null;
+		@SuppressWarnings("unchecked")
+		Comparable<? super K> k = (Comparable<? super K>) key;
+		int compRes = k.compareTo(node.key);
+
+		if (compRes < 0) {
+			if (node.left == null) {
+				node.left = new Node(key, value);
+				size++;
+				return null;
+			} else {
+				return putHelper(node.left, key, value);
+			}
+		}
+		if (compRes > 0) {
+			if (node.right == null) {
+				node.right = new Node(key, value);
+				size++;
+				return null;
+			} else {
+				return putHelper(node.right, key, value);
+			}
+		}
+		V oldVal = node.value;
+		node.value = value;
+		return oldVal;
 	}
 
 	@Override
